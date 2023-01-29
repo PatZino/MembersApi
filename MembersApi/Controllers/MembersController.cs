@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MembersApi.Contracts;
 using MembersApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 // https://localhost:5001/swagger/index.html
@@ -47,12 +48,12 @@ namespace MembersApi.Controllers
 			{
 				_repository.Member.Create(createModel);
 				_repository.Save();
-				return Ok();
+				return StatusCode(StatusCodes.Status201Created);
 			}
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
-				return BadRequest();
+				return StatusCode(StatusCodes.Status500InternalServerError);
 			}
 		}
 
@@ -65,7 +66,7 @@ namespace MembersApi.Controllers
 			{
 				if (memberDetails == null)
 				{
-					return BadRequest();
+					return NotFound();
 				}
 
 				var updateModel = _mapper.Map<MemberViewModel, Member>(model, memberDetails);
@@ -76,16 +77,21 @@ namespace MembersApi.Controllers
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
-				return BadRequest();
+				return StatusCode(StatusCodes.Status500InternalServerError);
 			}
 		}
 
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public ActionResult Delete(int id)
 		{
 			var memberDetails = _repository.Member.FindByCondition(x => x.Id == id).FirstOrDefault();
+			if (memberDetails == null)
+			{
+				return NotFound();
+			}
 			_repository.Member.Delete(memberDetails);
 			_repository.Save();
+			return NoContent();
 		}
 	}
 }
