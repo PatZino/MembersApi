@@ -13,35 +13,31 @@ namespace MembersApi.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		[Display(Name = "First Name")]
-		[Required(ErrorMessage = "First Name is required")]
+		[Required]
 		public string FirstName { get; set; }
 
-		[Display(Name = "Last Name")]
-		[Required(ErrorMessage = "Last Name is required")]
+		[Required]
 		public string LastName { get; set; }
 
-		[Display(Name = "Middle Name")]
 		public string MiddleName { get; set; }
 
-		[Display(Name = "Main Programming Language")]
-		[Required(ErrorMessage = "Main Programming Language is required")]
+		[Phone]
+		[Required]
+		public string PhoneNumber { get; set; }
+
+		[Required]
 		public string MainProgrammingLanguage { get; set; }
 
-		[Display(Name = "Other Languages")]
 		public string OtherLanguages { get; set; }
 
 		public string Interest { get; set; }
 
-		[Display(Name = "Years of experience")]
-		[Required(ErrorMessage = "Years of experience is required")]
+		[Required]
 		public string YearsOfExperience { get; set; }
 
-		[Display(Name = "Country Of Residence")]
-		[Required(ErrorMessage = "Country Of Residence")]
+		[Required]
 		public string CountryOfResidence { get; set; }
 
-		[Display(Name = "City Of Residence")]
 		public string CityOfResidence { get; set; }
 	}
 }

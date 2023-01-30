@@ -19,6 +19,10 @@ namespace MembersApi.Models
 		[Display(Name = "Middle Name")]
 		public string MiddleName { get; set; }
 
+		[Phone]
+		[Required]
+		public string PhoneNumber { get; set; }
+
 		[Display(Name = "Main Programming Language")]
 		[Required(ErrorMessage = "Main Programming Language is required")]
 		public string MainProgrammingLanguage { get; set; }
